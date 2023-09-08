@@ -17,6 +17,7 @@ namespace Transmax_EagleRock_EagleBot.Services
             services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect(redisConnString));
             services.AddStackExchangeRedisCache(options => options.Configuration = redisConnString);
             services.AddScoped<ICacheHelper, CacheHelper>();
+            services.AddScoped<IMessageProducer, RabbitMQProducer>();
         }
     }
 }

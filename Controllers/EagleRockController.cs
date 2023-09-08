@@ -5,18 +5,20 @@ using Transmax_EagleRock_EagleBot.Services.Interfaces;
 namespace Transmax_EagleRock_EagleBot.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("")]
     public class EagleRockController : ControllerBase
     {
         private readonly ICacheHelper _cacheHelper;
+        private readonly IMessageProducer _messagePublisher;
 
-        public EagleRockController(ICacheHelper cacheHelper)
+        public EagleRockController(ICacheHelper cacheHelper, IMessageProducer messagePublisher)
         {
             _cacheHelper = cacheHelper;
+            _messagePublisher = messagePublisher;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAllActiveEagleBotData()
+        [HttpGet("GetActiveEagleBots")]
+        public async Task<IActionResult> GetAllActiveEagleBotsFromCache()
         {
             var results = new List<EagleBotData>();
 
@@ -34,10 +36,11 @@ namespace Transmax_EagleRock_EagleBot.Controllers
             return new OkObjectResult(results);
         }
 
-        [HttpPost]
+        [HttpPost("TransferTrafficData")]
         public async Task<IActionResult> TransferTrafficData(EagleBotData request)
         {
             await _cacheHelper.SaveTrafficDataToCache(request);
+            _messagePublisher.SendMessage(request);
             return new OkResult();
         }        
     }

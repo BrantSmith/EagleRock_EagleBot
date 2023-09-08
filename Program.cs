@@ -24,8 +24,11 @@ namespace Transmax_EagleRock_EagleBot
             }
 
             app.UseHttpsRedirection();
+
             app.UseAuthorization();
+
             app.MapControllers();
+
             app.Run();
         }
     }

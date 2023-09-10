@@ -12,7 +12,7 @@ Run the following in command prompt (in Administrator mode):
 	* Pull the Redis image:
 	`docker pull redis`
 	* Create and run a new container with the specified image
-	`docker run -d --name eaglebot-redis  --hostname eaglebotredis -p 6379:6379`
+	`docker run -d --name eaglebot-redis --hostname eaglebot-redis -p 6379:6379 redis`
 
 ## Precheck
 

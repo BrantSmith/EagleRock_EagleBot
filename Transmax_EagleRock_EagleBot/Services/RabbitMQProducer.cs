@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
-using RabbitMQ.Client;
+﻿using RabbitMQ.Client;
 using System.Text;
+using System.Text.Json;
 using Transmax_EagleRock_EagleBot.Services.Interfaces;
 
 namespace Transmax_EagleRock_EagleBot.Services
@@ -24,7 +24,7 @@ namespace Transmax_EagleRock_EagleBot.Services
             using var channel = connection.CreateModel();
             channel.QueueDeclare(_rabbitQueueName, exclusive: false);
 
-            var json = JsonConvert.SerializeObject(message);
+            var json = JsonSerializer.Serialize(message);
             var body = Encoding.UTF8.GetBytes(json);
             channel.BasicPublish("", _rabbitQueueName, body: body);
         }

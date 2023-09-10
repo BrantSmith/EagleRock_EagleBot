@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transmax_EagleRock_EagleBot", "Transmax_EagleRock_EagleBot\Transmax_EagleRock_EagleBot.csproj", "{8CE08308-C2D6-483D-ACB9-5F1FBB6EEDC8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EagleRock_EagleBot", "EagleRock_EagleBot\EagleRock_EagleBot.csproj", "{8CE08308-C2D6-483D-ACB9-5F1FBB6EEDC8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Transmax_EagleRock_EagleBot.Tests", "Transmax_EagleRock_EagleBot.Tests\Transmax_EagleRock_EagleBot.Tests.csproj", "{53E9C474-5FA5-4056-8076-1617BCD54C93}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EagleRock_EagleBot.Tests", "EagleRock_EagleBot.Tests\EagleRock_EagleBot.Tests.csproj", "{53E9C474-5FA5-4056-8076-1617BCD54C93}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

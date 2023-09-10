@@ -1,9 +1,9 @@
 ﻿using RabbitMQ.Client;
 using System.Text;
 using System.Text.Json;
-using Transmax_EagleRock_EagleBot.Services.Interfaces;
+using EagleRock_EagleBot.Services.Interfaces;
 
-namespace Transmax_EagleRock_EagleBot.Services
+namespace EagleRock_EagleBot.Services
 {
     public class RabbitMQProducer : IMessageProducer
     {

@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 
-namespace Transmax_EagleRock_EagleBot
+namespace EagleRock_EagleBot
 {
     public static class Utility
     {

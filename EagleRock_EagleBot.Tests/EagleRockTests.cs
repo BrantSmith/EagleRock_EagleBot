@@ -4,12 +4,12 @@ using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
 using Moq;
 using StackExchange.Redis;
-using Transmax_EagleRock_EagleBot.Controllers;
-using Transmax_EagleRock_EagleBot.Models;
-using Transmax_EagleRock_EagleBot.Services;
-using Transmax_EagleRock_EagleBot.Services.Interfaces;
+using EagleRock_EagleBot.Controllers;
+using EagleRock_EagleBot.Models;
+using EagleRock_EagleBot.Services;
+using EagleRock_EagleBot.Services.Interfaces;
 
-namespace Transmax_EagleRock_EagleBot.Tests
+namespace EagleRock_EagleBot.Tests
 {
     public class Tests
     {

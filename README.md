@@ -1,4 +1,4 @@
-# Transmax - EagleRock/EagleBot API
+# EagleRock/EagleBot API
 
 ## First Setup
 Ensure you have installed [Docker Desktop](https://www.docker.com/products/docker-desktop/).
@@ -20,7 +20,7 @@ Before running the solution, ensure the following:
 * The required containers are running (using the Docker Desktop UI):
 	* *eaglebot-redis*
 	* *eaglebot-rabbit*
-	* *Transmax_EagleRock_EagleBot* (this will be created on first run of the solution)
+	* *EagleRock_EagleBot* (this will be created on first run of the solution)
 * **If containers are not running, either use the Docker Desktop UI to start them, or use the following in command prompt to start them**:
 	* `docker exec -it eaglebot-redis sh`
 	* `docker exec -it eaglebot-rabbit sh` 

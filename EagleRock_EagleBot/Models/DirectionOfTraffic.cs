@@ -1,4 +1,4 @@
-﻿namespace Transmax_EagleRock_EagleBot.Models
+﻿namespace EagleRock_EagleBot.Models
 {
     public enum DirectionOfTraffic
     {

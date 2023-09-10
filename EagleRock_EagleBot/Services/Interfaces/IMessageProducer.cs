@@ -1,4 +1,4 @@
-﻿namespace Transmax_EagleRock_EagleBot.Services.Interfaces
+﻿namespace EagleRock_EagleBot.Services.Interfaces
 {
     public interface IMessageProducer
     {

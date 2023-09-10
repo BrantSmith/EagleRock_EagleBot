@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
-using Transmax_EagleRock_EagleBot.Models;
-using Transmax_EagleRock_EagleBot.Services.Interfaces;
+using EagleRock_EagleBot.Models;
+using EagleRock_EagleBot.Services.Interfaces;
 
-namespace Transmax_EagleRock_EagleBot.Controllers
+namespace EagleRock_EagleBot.Controllers
 {
     [ApiController]
     [Route("")]

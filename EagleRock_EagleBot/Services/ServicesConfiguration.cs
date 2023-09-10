@@ -1,8 +1,8 @@
 ﻿using RabbitMQ.Client;
 using StackExchange.Redis;
-using Transmax_EagleRock_EagleBot.Services.Interfaces;
+using EagleRock_EagleBot.Services.Interfaces;
 
-namespace Transmax_EagleRock_EagleBot.Services
+namespace EagleRock_EagleBot.Services
 {
     public static class ServicesConfiguration
     {

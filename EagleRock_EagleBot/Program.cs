@@ -1,9 +1,9 @@
 using RabbitMQ.Client.Events;
 using RabbitMQ.Client;
-using Transmax_EagleRock_EagleBot.Services;
+using EagleRock_EagleBot.Services;
 using System.Text;
 
-namespace Transmax_EagleRock_EagleBot
+namespace EagleRock_EagleBot
 {
     public class Program
     {

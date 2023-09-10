@@ -1,6 +1,6 @@
-﻿using Transmax_EagleRock_EagleBot.Models;
+﻿using EagleRock_EagleBot.Models;
 
-namespace Transmax_EagleRock_EagleBot.Services.Interfaces
+namespace EagleRock_EagleBot.Services.Interfaces
 {
     public interface ICacheHelper
     {

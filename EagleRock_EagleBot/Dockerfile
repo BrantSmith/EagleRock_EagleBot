@@ -10,16 +10,16 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["Transmax_EagleRock_EagleBot.csproj", "."]
-RUN dotnet restore "./Transmax_EagleRock_EagleBot.csproj"
+COPY ["EagleRock_EagleBot.csproj", "."]
+RUN dotnet restore "./EagleRock_EagleBot.csproj"
 COPY . .
 WORKDIR "/src/."
-RUN dotnet build "Transmax_EagleRock_EagleBot.csproj" -c Release -o /app/build
+RUN dotnet build "EagleRock_EagleBot.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Transmax_EagleRock_EagleBot.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "EagleRock_EagleBot.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Transmax_EagleRock_EagleBot.dll"]
+ENTRYPOINT ["dotnet", "EagleRock_EagleBot.dll"]

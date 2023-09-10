@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Transmax_EagleRock_EagleBot\Transmax_EagleRock_EagleBot.csproj" />
+    <ProjectReference Include="..\EagleRock_EagleBot\EagleRock_EagleBot.csproj" />
   </ItemGroup>
 
 </Project>

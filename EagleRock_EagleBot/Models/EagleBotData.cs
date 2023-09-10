@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Transmax_EagleRock_EagleBot.Models
+namespace EagleRock_EagleBot.Models
 {
     public class EagleBotData
     {

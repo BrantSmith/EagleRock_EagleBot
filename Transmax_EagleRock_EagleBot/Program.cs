@@ -11,16 +11,14 @@ namespace Transmax_EagleRock_EagleBot
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            // Add services
             builder.Services.ConfigureServices(builder.Configuration);
-            var hostname = builder.Configuration["RabbitHostName"];
-            var rabbitQueueName = builder.Configuration["RabbitQueueName"];
-
             var app = builder.Build();
 
-            var factory = new ConnectionFactory { HostName = hostname };
+            // Rabbit MQ            
+            var factory = app.Services.GetService<ConnectionFactory>();
             var connection = factory.CreateConnection();
-
+            var rabbitQueueName = builder.Configuration["RabbitQueueName"];
             using var channel = connection.CreateModel();
             channel.QueueDeclare(rabbitQueueName, exclusive: false);
 
@@ -36,11 +34,8 @@ namespace Transmax_EagleRock_EagleBot
             }
 
             app.UseHttpsRedirection();
-
             app.UseAuthorization();
-
             app.MapControllers();
-
             app.Run();
         }
 
@@ -48,7 +43,7 @@ namespace Transmax_EagleRock_EagleBot
         {
             var body = e.Body.ToArray();
             var message = Encoding.UTF8.GetString(body);
-            Console.WriteLine(message);
+            Console.WriteLine($"Message received from RabbitMQ queue: {message}");
         }
     }
 }

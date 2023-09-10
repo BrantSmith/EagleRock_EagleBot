@@ -4,7 +4,6 @@ using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
 using Moq;
 using StackExchange.Redis;
-using System.Text.Json;
 using Transmax_EagleRock_EagleBot.Controllers;
 using Transmax_EagleRock_EagleBot.Models;
 using Transmax_EagleRock_EagleBot.Services;
@@ -14,10 +13,10 @@ namespace Transmax_EagleRock_EagleBot.Tests
 {
     public class Tests
     {
-        private readonly Mock<IDistributedCache> _cache = new Mock<IDistributedCache>();
-        private readonly Mock<IConnectionMultiplexer> _multiplexer = new Mock<IConnectionMultiplexer>();
-        private readonly Mock<IMessageProducer> _messageProducer = new Mock<IMessageProducer>();
-        private readonly Mock<IServer> _server = new Mock<IServer>();
+        private readonly Mock<IDistributedCache> _mockCache = new Mock<IDistributedCache>();
+        private readonly Mock<IConnectionMultiplexer> _mockMultiplexer = new Mock<IConnectionMultiplexer>();
+        private readonly Mock<IMessageProducer> _mockMessageProducer = new Mock<IMessageProducer>();
+        private readonly Mock<IServer> _mockServer = new Mock<IServer>();
 
         private EagleRockController _controller;
 
@@ -33,12 +32,12 @@ namespace Transmax_EagleRock_EagleBot.Tests
             var id = Guid.NewGuid().ToString();
             var keys = new RedisKey[] { id };
       
-            _cache.Setup(c => c.GetAsync(id, It.IsAny<CancellationToken>())).ReturnsAsync(bytes);
+            _mockCache.Setup(c => c.GetAsync(id, It.IsAny<CancellationToken>())).ReturnsAsync(bytes);
             _expectedResult = Utility.MapByteArrayTo<EagleBotData>(bytes);
             if (_expectedResult != null)
                 _expectedResults.Add(_expectedResult);
 
-            _server.Setup(_ => _.Keys(
+            _mockServer.Setup(_ => _.Keys(
                     It.IsAny<int>(),
                     It.IsAny<RedisValue>(),
                     It.IsAny<int>(),
@@ -46,16 +45,15 @@ namespace Transmax_EagleRock_EagleBot.Tests
                     It.IsAny<int>(),
                     It.IsAny<CommandFlags>())).Returns(keys);
 
-            _multiplexer.Setup(m => m.GetServer(It.IsAny<string>(), It.IsAny<object?>())).Returns(_server.Object);
-
+            _mockMultiplexer.Setup(m => m.GetServer(It.IsAny<string>(), It.IsAny<object?>())).Returns(_mockServer.Object);
 
             var mockConfSection = new Mock<IConfigurationSection>();
-            mockConfSection.SetupGet(m => m[It.Is<string>(s => s == "RedisConnString")]).Returns("mock value");
-
             var mockConfiguration = new Mock<IConfiguration>();
+            mockConfSection.SetupGet(m => m[It.Is<string>(s => s == "RedisConnString")]).Returns("mock value");
+            mockConfSection.SetupGet(m => m[It.Is<string>(s => s == "RabbitConnString")]).Returns("mock value");
             mockConfiguration.Setup(a => a.GetSection(It.Is<string>(s => s == "ConnectionStrings"))).Returns(mockConfSection.Object);
 
-            _controller = new EagleRockController(new CacheHelper(_cache.Object, _multiplexer.Object, mockConfiguration.Object), _messageProducer.Object);
+            _controller = new EagleRockController(new CacheHelper(_mockCache.Object, _mockMultiplexer.Object, mockConfiguration.Object), _mockMessageProducer.Object);
         }
 
         [Test]
@@ -109,7 +107,7 @@ namespace Transmax_EagleRock_EagleBot.Tests
                     Longitude = 0
                 },
                 Timestamp = DateTimeOffset.Now,
-                RoadName = "",
+                RoadName = string.Empty,
                 Direction = DirectionOfTraffic.NE,
                 RateOfTrafficFlow = 0,
                 AvgVehicleSpeed = 0
@@ -129,6 +127,13 @@ namespace Transmax_EagleRock_EagleBot.Tests
                 "AvgVehicleSpeed is not provided"
                 );
         }
+
+        // NOTE: Unable to test RabbitMQ, as there is not a way to mock ConnectionFactory.CreateConnection (returns IConnection)
+        //[Test]
+        //public async Task Test_RabbitMQ_SendMessage()
+        //{
+            
+        //}
 
     }
 }

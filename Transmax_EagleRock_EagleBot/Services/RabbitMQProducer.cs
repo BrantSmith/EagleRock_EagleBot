@@ -7,20 +7,18 @@ namespace Transmax_EagleRock_EagleBot.Services
 {
     public class RabbitMQProducer : IMessageProducer
     {
-        private readonly string? _hostname;
+        private readonly ConnectionFactory _factory;
         private readonly string? _rabbitQueueName;
 
-        public RabbitMQProducer(IConfiguration configuration)
-       {
-            _hostname = configuration["RabbitHostName"];
+        public RabbitMQProducer(IConfiguration configuration, ConnectionFactory factory)
+        {
+            _factory = factory;
             _rabbitQueueName = configuration["RabbitQueueName"];
         }
 
         public void SendMessage<T>(T message)
         {
-            var factory = new ConnectionFactory { HostName = _hostname };
-            var connection = factory.CreateConnection();
-            
+            using var connection = _factory.CreateConnection();
             using var channel = connection.CreateModel();
             channel.QueueDeclare(_rabbitQueueName, exclusive: false);
 

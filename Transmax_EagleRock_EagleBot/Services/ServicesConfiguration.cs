@@ -1,4 +1,5 @@
-﻿using StackExchange.Redis;
+﻿using RabbitMQ.Client;
+using StackExchange.Redis;
 using Transmax_EagleRock_EagleBot.Services.Interfaces;
 
 namespace Transmax_EagleRock_EagleBot.Services
@@ -11,9 +12,14 @@ namespace Transmax_EagleRock_EagleBot.Services
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
 
+            // Redis
             var redisConnString = configuration.GetConnectionString("RedisConnString");
             services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect(redisConnString));
             services.AddStackExchangeRedisCache(options => options.Configuration = redisConnString);
+
+            // RabbitMQ
+            var rabbitConnString = configuration.GetConnectionString("RabbitConnString");
+            services.AddSingleton(_ => new ConnectionFactory { HostName = rabbitConnString });
 
             services.AddScoped<ICacheHelper, CacheHelper>();
             services.AddScoped<IMessageProducer, RabbitMQProducer>();

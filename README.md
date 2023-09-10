@@ -24,6 +24,8 @@ Before running the solution, ensure the following:
 * **If containers are not running, either use the Docker Desktop UI to start them, or use the following in command prompt to start them**:
 	* `docker exec -it eaglebot-redis sh`
 	* `docker exec -it eaglebot-rabbit sh` 
+
+**NOTE**: *The below instructions are required, as explicitely set IP addresses on a docker container require user-defined subnetworks*
 * Obtain the IP addresses for the redis and rabbit containers, and adjust the appsettings.json/appsettings.Development.json files to match the values:
 	* *ConnectionStrings:RedisConnString* (format of "ipaddress:port"):
 	`docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' eaglebot-redis`

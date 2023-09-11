@@ -13,18 +13,18 @@ namespace EagleRock_EagleBot.Tests
 {
     public class Tests
     {
-        private readonly Mock<IDistributedCache> _mockCache = new Mock<IDistributedCache>();
-        private readonly Mock<IConnectionMultiplexer> _mockMultiplexer = new Mock<IConnectionMultiplexer>();
-        private readonly Mock<IMessageProducer> _mockMessageProducer = new Mock<IMessageProducer>();
-        private readonly Mock<IServer> _mockServer = new Mock<IServer>();
+        private readonly Mock<IDistributedCache> _mockCache = new();
+        private readonly Mock<IConnectionMultiplexer> _mockMultiplexer = new();
+        private readonly Mock<IMessageProducer> _mockMessageProducer = new();
+        private readonly Mock<IServer> _mockServer = new();
 
         private EagleRockController _controller;
 
-        private List<EagleBotData> _expectedResults = new List<EagleBotData>();
+        private readonly List<EagleBotData> _expectedResults = new();
         private EagleBotData? _expectedResult;
 
         const string _byteStr = "eyJJZCI6IjNmYTg1ZjY0LTU3MTctNDU2Mi1iM2ZjLTJjOTYzZjY2YWZhNiIsIkxvY2F0aW9uIjp7IkxhdGl0dWRlIjotMjcuNDY4ODI5NjI2MTcxODkyLCJMb25naXR1ZGUiOjE1My4wMDkxNDMwNTc1ODM1N30sIlRpbWVzdGFtcCI6IjIwMjMtMDktMDhUMjI6NTc6MjguNDE4KzAwOjAwIiwiUm9hZE5hbWUiOiJMaXR0bGUgQ3JpYmIgU3QsIE1pbHRvbiIsIkRpcmVjdGlvbiI6MiwiUmF0ZU9mVHJhZmZpY0Zsb3ciOjIyLCJBdmdWZWhpY2xlU3BlZWQiOjQwfQ==\r\n";
-        byte[] bytes = Convert.FromBase64String(_byteStr);
+        private readonly byte[] bytes = Convert.FromBase64String(_byteStr);
 
         [SetUp]
         public void Setup()
@@ -64,11 +64,12 @@ namespace EagleRock_EagleBot.Tests
 
             // Assert
             var okObjectResult = result as OkObjectResult;
-            Assert.NotNull(okObjectResult);
+            okObjectResult.Should().NotBeNull();
 
-            var model = okObjectResult.Value as List<EagleBotData>;
-            Assert.NotNull(model);
-            model[0].Should().BeEquivalentTo(_expectedResults[0]);
+            var model = okObjectResult?.Value as List<EagleBotData>;
+            model.Should().NotBeNull().And.HaveSameCount(_expectedResults);
+            for (int i = 0; i < model?.Count; i++)
+                model[i].Should().BeEquivalentTo(_expectedResults[i]);
         }
 
         [Test]
@@ -91,7 +92,7 @@ namespace EagleRock_EagleBot.Tests
 
             // Assert
             var okObjectResult = result as OkResult;
-            Assert.NotNull(okObjectResult);
+            okObjectResult.Should().NotBeNull();
         }
 
         [Test]
@@ -115,10 +116,11 @@ namespace EagleRock_EagleBot.Tests
 
             // Assert
             var badRequestResult = result as BadRequestObjectResult;
-            Assert.NotNull(badRequestResult);
+            badRequestResult.Should().NotBeNull();
 
-            var error = badRequestResult.Value as string;
-            Assert.NotNull(error);
+            var error = badRequestResult?.Value as string;
+
+            error.Should().NotBeNull();
             error.Should().ContainAll(
                 "Id is not provided",
                 "Latitude and longitude are not provided",

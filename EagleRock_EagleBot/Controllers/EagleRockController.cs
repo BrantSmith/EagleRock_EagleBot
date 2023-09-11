@@ -68,7 +68,7 @@ namespace EagleRock_EagleBot.Controllers
         /// <param name="request"></param>
         /// <returns></returns>
         [NonAction]
-        private (bool valid, string error) ValidateRequest(EagleBotData request)
+        private static (bool valid, string error) ValidateRequest(EagleBotData request)
         {
             var valid = true;
             var sb = new StringBuilder();

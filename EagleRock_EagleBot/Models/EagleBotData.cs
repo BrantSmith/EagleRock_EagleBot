@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace EagleRock_EagleBot.Models
 {
     public class EagleBotData
@@ -11,5 +9,5 @@ namespace EagleRock_EagleBot.Models
         public required DirectionOfTraffic Direction { get; set; }
         public required double RateOfTrafficFlow { get; set; }
         public required double AvgVehicleSpeed { get; set; }
-}
+    }
 }
